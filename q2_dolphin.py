@@ -6,13 +6,19 @@ from networkx.algorithms.community import greedy_modularity_communities
 from networkx.algorithms.community.centrality import girvan_newman
 from sklearn.cluster import SpectralClustering
 
-start_time = time.time()
+start_time = time.time() #for mod runtime purpose
+
+#reading the dolphin gml
 dolphin = nx.read_gml("C:\\Users\Kaushal\\Desktop\\dolphins.gml", label='id')
 remove_edges = 7
+
+#implementing girvan_newman algo on dolphin and saving the array "comp"
 comp = girvan_newman(dolphin)
 count = 1
 print("_____________________________________________")
 print("Betweenness-based clustering using the Girvan-Newman")
+
+#generating tuples by removing different edges 
 for communities in itertools.islice(comp, remove_edges):
     print("Edge Removal no. {0}".format(count))
     if count == 3:
@@ -21,9 +27,12 @@ for communities in itertools.islice(comp, remove_edges):
     print(tuple(sorted(c) for c in communities))
     print(len(communities))
 
+
 print("Modularity score is:{0}".format(nx_algo.modularity(dolphin, modu)))
 print("_____________________________________________")
 print("Modularity Based Clustering")
+
+#implementing modularity for dolphin
 community = list(greedy_modularity_communities(dolphin))
 count = 0
 for comm in community:
@@ -33,6 +42,7 @@ print("___________________________________")
 
 adj_mat = nx.to_numpy_matrix(dolphin)
 
+#implementing spectral clustering for dolphin
 spec_clust = SpectralClustering(5, affinity='precomputed', n_init=100)
 spec_clust.fit(adj_mat)
 

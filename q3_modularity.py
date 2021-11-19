@@ -14,7 +14,6 @@ args = parser.parse_args()
 start_time = time.time()
 
 # Apply modularity-based clustering (modularity maximization) on the input graph
-#dolphin= nx.read_gml("C:\\Users\Kaushal\\Desktop\\dolphins.gml", label='id')
 network_graph = nx.read_gml(args.path, label='id')
 community = list(greedy_modularity_communities(network_graph))
 print("_____________________________________________")

@@ -15,6 +15,8 @@ comp = girvan_newman(jazz)
 count = 1
 print("_____________________________________________")
 print("Betweenness-based clustering using the Girvan-Newman")
+
+#generating tuples by removing different edges 
 for communities in itertools.islice(comp, remove_edges):
     print("Edge Removal no. {0}".format(count))
     if count == 3:
@@ -26,6 +28,8 @@ for communities in itertools.islice(comp, remove_edges):
 print("Modularity score is:{0}".format(nx_algo.modularity(jazz, modu)))
 print("_____________________________________________")
 print("Modularity Based Clustering")
+
+#implementing modularity for dolphin
 community = list(greedy_modularity_communities(jazz))
 count = 0
 for comm in community:
@@ -35,9 +39,9 @@ print("___________________________________")
 
 adj_mat = nx.to_numpy_matrix(jazz)
 
+#implementing spectral clustering for dolphin
 spec_clust = SpectralClustering(5, affinity='precomputed', n_init=100)
 spec_clust.fit(adj_mat)
-
 print('Spectral Clustering')
 print(spec_clust.labels_)
 # print(modu)
